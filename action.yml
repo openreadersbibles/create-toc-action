@@ -12,7 +12,7 @@ inputs:
     description: "The branch to process (default: gh-pages)"
     required: false
     default: "gh-pages"
-  branch:
+  github-token:
     description: "The GitHub token"
     required: true
     default: "of course it fails"
