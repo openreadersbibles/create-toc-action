@@ -9,6 +9,13 @@ git push origin dev
 
 
 
+
+git add .
+git commit -m 'update'
+git push
+
+
+
 ## Testing
 
 cd "~\Documents\open-readers-bibles\action-testbed"
