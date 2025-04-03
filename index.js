@@ -22,6 +22,27 @@ async function listDirectory(owner, repo, path, branch) {
     }
 }
 
+// Wrap the main logic in an async function
+async function run() {
+    try {
+        const owner = github.context.repo.owner;
+        const repo = github.context.repo.repo;
+        const path = ''; // Root directory
+        const branch = core.getInput('branch') || 'gh-pages';
+
+        const files = await listDirectory(owner, repo, path, branch);
+        console.log('Directory listing:', files);
+
+        // Additional logic for processing files can go here
+    } catch (error) {
+        core.setFailed(error.message);
+    }
+}
+
+// Call the async function
+run();
+
+/*
 try {
     const owner = github.context.repo.owner;
     const repo = github.context.repo.repo;
@@ -78,3 +99,4 @@ try {
 } catch (error) {
     core.setFailed(error.message);
 }
+*/
