@@ -1,10 +1,10 @@
 name: 'Create TOC'
 description: 'Create an HTML Table of Contents file for a project'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
-    required: true
-    default: 'World'
+  branch:
+    description: "The branch to process (default: gh-pages)"
+    required: false
+    default: "gh-pages"
 outputs:
   time: # id of output
     description: 'The time we greeted you'
