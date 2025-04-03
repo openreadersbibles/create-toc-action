@@ -8,6 +8,8 @@ try {
     // Get the branch to process (default: gh-pages)
     const branch = core.getInput('branch') || 'gh-pages';
 
+    console.log(`Checking out branch: ${github.context}`);
+
     // Checkout the gh-pages branch
     console.log(`Checking out branch: ${branch}`);
     execSync(`git fetch origin ${branch}`);
