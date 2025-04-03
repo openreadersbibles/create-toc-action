@@ -1,4 +1,11 @@
 name: 'Create TOC'
+
+on:
+  push:
+    branches:
+      - gh-pages
+  workflow_dispatch:
+
 description: 'Create an HTML Table of Contents file for a project'
 inputs:
   branch:
