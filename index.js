@@ -8,7 +8,7 @@ const token = core.getInput('github-token'); // Pass a GitHub token as input
 console.log('Token:', token); // Log the token for debugging (remove in production)
 const octokit = github.getOctokit(token);
 
-async function listDirectory(owner, repo, path, branch) {
+async function getDirectories(owner, repo, path, branch) {
     console.log("Here are the parameters:");
     console.log(owner, repo, path, branch);
     const response = await octokit.rest.repos.getContent({
@@ -19,7 +19,22 @@ async function listDirectory(owner, repo, path, branch) {
     });
 
     if (Array.isArray(response.data)) {
-        return response.data.map(item => item.name); // List of file and directory names
+        return response.data.filter(item => item.type === 'dir').map(item => item.name); // List of file and directory names
+    } else {
+        throw new Error('The specified path is not a directory.');
+    }
+}
+
+async function getRelevantFiles(owner, repo, path, branch) {
+    const response = await octokit.rest.repos.getContent({
+        owner,
+        repo,
+        path,
+        ref: branch, // Branch name
+    });
+
+    if (Array.isArray(response.data)) {
+        return response.data.filter(item => item.type === 'file' && (item.endsWith(".pdf") || item.endsWith(".html"))).map(item => item.name);
     } else {
         throw new Error('The specified path is not a directory.');
     }
@@ -33,8 +48,14 @@ async function run() {
         const path = ''; // Root directory
         const branch = core.getInput('branch') || 'gh-pages';
 
-        const files = await listDirectory(owner, repo, path, branch);
-        console.log('Directory listing:', files);
+        const folders = await getDirectories(owner, repo, path, branch);
+        console.log('Directories:', folders);
+
+        folders.forEach(async dir => {
+            console.log(`Contennts of ${dir}:`);
+            const files = await getRelevantFiles(owner, repo, dir, branch);
+            console.log(files);
+        });
 
         // Additional logic for processing files can go here
     } catch (error) {
