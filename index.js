@@ -34,7 +34,7 @@ async function getRelevantFiles(owner, repo, path, branch) {
     });
 
     if (Array.isArray(response.data)) {
-        return response.data.filter(item => item.type === 'file' && (item.endsWith(".pdf") || item.endsWith(".html"))).map(item => item.name);
+        return response.data.filter(item => item.type === 'file' && (item.name.endsWith(".pdf") || item.name.endsWith(".html"))).map(item => item.name);
     } else {
         throw new Error('The specified path is not a directory.');
     }
@@ -52,7 +52,7 @@ async function run() {
         console.log('Directories:', folders);
 
         folders.forEach(async dir => {
-            console.log(`Contennts of ${dir}:`);
+            console.log(`Contents of ${dir}:`);
             const files = await getRelevantFiles(owner, repo, dir, branch);
             console.log(files);
         });
