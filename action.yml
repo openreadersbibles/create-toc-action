@@ -12,6 +12,10 @@ inputs:
     description: "The branch to process (default: gh-pages)"
     required: false
     default: "gh-pages"
+  branch:
+    description: "The GitHub token"
+    required: true
+    default: "of course it fails"
 outputs:
   time: # id of output
     description: 'The time we greeted you'
