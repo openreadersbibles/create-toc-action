@@ -9,6 +9,7 @@ console.log('Token:', token); // Log the token for debugging (remove in producti
 const octokit = github.getOctokit(token);
 
 async function listDirectory(owner, repo, path, branch) {
+    console.log("Here are the parameters:");
     console.log(owner, repo, path, branch);
     const response = await octokit.rest.repos.getContent({
         owner,
