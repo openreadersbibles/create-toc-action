@@ -4,8 +4,10 @@
 
 git add .
 git commit -m 'update'
-git tag dev
-git push origin dev
+git tag -d dev
+git tag -f dev
+git push
+git push origin -f dev
 
 
 

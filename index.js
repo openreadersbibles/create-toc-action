@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const token = core.getInput('github-token'); // Pass a GitHub token as input
+console.log('Token:', token); // Log the token for debugging (remove in production)
 const octokit = github.getOctokit(token);
 
 async function listDirectory(owner, repo, path, branch) {
